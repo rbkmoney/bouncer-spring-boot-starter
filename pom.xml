@@ -5,24 +5,33 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.rbkmoney</groupId>
+        <artifactId>library-parent-pom</artifactId>
+        <version>1.0.3</version>
+        <relativePath/>
     </parent>
 
-    <groupId>com.rbkmoney</groupId>
     <artifactId>bouncer-spring-boot-starter</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
+    <name>bouncer-spring-boot-starter</name>
     <description>Spring Boot starter for Bouncer integration</description>
+
+    <scm>
+        <connection>scm:git:git://github.com/rbkmoney/bouncer-spring-boot-starter.git</connection>
+        <developerConnection>scm:git:ssh://github.com/rbkmoney/bouncer-spring-boot-starter.git</developerConnection>
+        <url>https://github.com/rbkmoney/bouncer-spring-boot-starter/tree/master</url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <kotlin.version>1.5.20</kotlin.version>
+        <java.version>11</java.version>
         <kotlin-logging.version>2.0.6</kotlin-logging.version>
+
+        <spring.version>2.5.0</spring.version>
 
         <org-management-proto.version>1.2-06c5c84</org-management-proto.version>
         <bouncer-proto.version>1.21-60cedce</bouncer-proto.version>
@@ -31,6 +40,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <type>pom</type>
+                <version>${spring.version}</version>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -105,9 +121,17 @@
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <plugins>
             <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.version}</version>
+            </plugin>
+            <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
+                <version>${kotlin.version}</version>
                 <configuration>
+                    <jvmTarget>${java.version}</jvmTarget>
+                    <javaParameters>true</javaParameters>
                     <args>
                         <arg>-Xjsr305=strict</arg>
                     </args>
@@ -126,6 +150,20 @@
                                 <sourceDir>src/main/kotlin</sourceDir>
                             </sourceDirs>
                         </configuration>
+                    </execution>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
                     </execution>
                 </executions>
                 <dependencies>
