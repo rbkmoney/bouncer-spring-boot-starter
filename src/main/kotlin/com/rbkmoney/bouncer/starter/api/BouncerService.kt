@@ -4,7 +4,7 @@ import com.rbkmoney.bouncer.decisions.ArbiterSrv
 import com.rbkmoney.bouncer.starter.config.properties.BouncerProperties
 import org.apache.thrift.TException
 
-class BouncerService(
+open class BouncerService(
     private val bouncerContextFactory: BouncerContextFactory,
     private val bouncerClient: ArbiterSrv.Iface,
     private val bouncerProperties: BouncerProperties

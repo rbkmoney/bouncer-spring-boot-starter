@@ -3,7 +3,7 @@ package com.rbkmoney.bouncer.starter
 import com.rbkmoney.bouncer.ctx.ContextFragment
 import com.rbkmoney.orgmanagement.AuthContextProviderSrv
 
-class UserAuthContextProvider(
+open class UserAuthContextProvider(
     private val authContextProvider: AuthContextProviderSrv.Iface
 ) {
 
